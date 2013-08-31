@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Park. statistics</title>
+	<link href="./assets/css/examples.css" rel="stylesheet" type="text/css">
+	<script language="javascript" type="text/javascript" src="./assets/js/jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="./assets/js/jquery.flot.js"></script>
+	<script language="javascript" type="text/javascript" src="./assets/js/jquery.flot.time.js"></script>
+	<script type="text/javascript">
+
+	$(function() {
+
+		// test data
+		var arenas = [[1167692400000, 0.20], [1196982000000, 0.31], [1205967600000, 0.27], [1220911200000, 0.24]];
+		var pmed = [[1167692400000, 0.10], [1196982000000, 0.21], [1205967600000, 0.27], [1220911200000, 0.14]];
+		
+		var marshall = [];
+		
+		
+		$.getJSON('../stats/unread/marshall',
+			{
+				format: 'json',
+				async: false
+			}, function(mars) {
+			
+			// prepare data for flot
+			var data = [
+				{ data: mars, label: "marshall" }
+			];
+			
+			// prepare options
+			var options = {
+			canvas: false,
+			xaxes: [ { mode: "time" } ]
+			}
+			
+			// plot the data using flot
+			$.plot("#placeholder", data,options);
+
+		
+		});
+		
+	});
+
+	</script>
+</head>
+<body>
+
+	<div id="header">
+		<h2>Non lues CDP (%)</h2>
+	</div>
+
+	<div id="content">
+
+		<div class="demo-container">
+			<div id="placeholder" class="demo-placeholder"></div>
+		</div>
+
+		<p>Ce graphique montre l'evolution du pourcentage de plaques non lues.</p>
+
+
+	</div>
+
+	<div id="footer">
+		Copyright &copy; Laurent Derache pour LC System 2013
+	</div>
+
+</body>
+</html>
