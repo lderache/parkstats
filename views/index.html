@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Flot Examples: Basic Usage</title>
+	<title>Park. statistics</title>
 	<link href="assets/css/examples.css" rel="stylesheet" type="text/css">
 	<script language="javascript" type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script language="javascript" type="text/javascript" src="../assets/js/jquery.flot.js"></script>
@@ -11,6 +11,7 @@
 
 	$(function() {
 
+		// test data
 		var arenas = [[1167692400000, 0.20], [1196982000000, 0.31], [1205967600000, 0.27], [1220911200000, 0.24]];
 		var pmed = [[1167692400000, 0.10], [1196982000000, 0.21], [1205967600000, 0.27], [1220911200000, 0.14]];
 		
@@ -22,47 +23,24 @@
 				format: 'json',
 				async: false
 			}, function(mars) {
-				//marshall = JSON.parse(data);
-				console.log("1: " + mars);
-				
+			
+			// prepare data for flot
 			var data = [
-				
-				
 				{ data: mars, label: "marshall" }
 			];
 			
+			// prepare options
 			var options = {
 			canvas: false,
 			xaxes: [ { mode: "time" } ]
 			}
 			
+			// plot the data using flot
 			$.plot("#placeholder", data,options);
 
 		
 		});
 		
-		//console.log("2: " + marshall);
-/*
-		var data = [
-			{ data: arenas, label: "arenas"},
-			{ data: pmed, label: "pmed" },
-			{ data: marshall, label: "marshall" }
-		];
-		
-		// A null signifies separate line segments
-
-		//var d3 = [[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]];
-		var options = {
-			canvas: false,
-			xaxes: [ { mode: "time" } ]
-		}
-		
-		$.plot("#placeholder", data,options);
-
-		// Add the Flot version string to the footer
-
-		$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
-		*/
 	});
 
 	</script>
@@ -79,14 +57,13 @@
 			<div id="placeholder" class="demo-placeholder"></div>
 		</div>
 
-		<p>You don't have to do much to get an attractive plot.  Create a placeholder, make sure it has dimensions (so Flot knows at what size to draw the plot), then call the plot function with your data.</p>
+		<p>Ce graphique montre l'evolution du pourcentage de plaques non lues.</p>
 
-		<p>The axes are automatically scaled.</p>
 
 	</div>
 
 	<div id="footer">
-		Copyright &copy; 2007 - 2013 IOLA and Ole Laursen
+		Copyright &copy; Laurent Derache pour LC System 2013
 	</div>
 
 </body>
