@@ -3,9 +3,13 @@ parkstats
 
 simple poc for parking LPR stats application
 
-install:
+Install:
+--------
 
-npm install
+npm install (to install express dependency)
+
 npm install mongodb
+
+
 
 
