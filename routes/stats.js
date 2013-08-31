@@ -12,8 +12,8 @@ db.open(function(err, db) {
         console.log("Connected to 'parkstats' database");
         db.collection('parkstats', {strict:true}, function(err, collection) {
             if (err) {
-                console.log("The 'parkstats' collection doesn't exist. Creating it with sample data...");
-                populateDB();
+                //console.log("The 'parkstats' collection doesn't exist. Creating it with sample data...");
+                //populateDB();
             }
         });
     }
@@ -33,23 +33,14 @@ db.open(function(err, db) {
 
  exports.findUnreadByName = function(req, res) {
     var n = req.params.name;
-    console.log('Retrieving stat for parking: ' + n);
-	
-	/*db.parkstats.find({name: n}).forEach(function (doc) {
-		print( "[" + doc.date + "," + doc.unread + "]");
-	});
-	*/
-	
-	
+    
     db.collection('parkstats', function(err, collection) {
         collection.find({name: n}, {unread: 1, date : 1, _id: 0}).toArray(function(err, items) {
-            
-			//console.log(items[0].date);
             
 			aa = [];
 			
 			items.forEach(function (data) {
-				console.log(data['date']);
+				
 				bb = [];
 				bb.push(parseInt(data['date']));
 				bb.push(parseFloat(data['unread']));
