@@ -1,8 +1,17 @@
 var express = require('express'),
     stats = require('./routes/stats'),
-	hash = require('./pass').hash;
+	hash = require('./pass').hash,
+	https = require('https'),
+	fs = require('fs')
+	;
 	
- 
+// This line is from the Node.js HTTPS documentation.
+var options = {
+  key: fs.readFileSync('certs/localhost.key'),
+  cert: fs.readFileSync('certs/localhost.pem')
+};
+
+
 var app = express();
 
 // config
@@ -131,5 +140,5 @@ app.post('/login', function(req, res){
 // staitc mapping to be done in the end since we do not want it to override folder restrict access
 app.use('/show', express.static(__dirname + '/show'));
  
-app.listen(3000);
-console.log('Listening on port 3000...');
+https.createServer(options, app).listen(443);
+console.log('Listening on port 443...');
