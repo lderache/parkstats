@@ -2,15 +2,16 @@ var express = require('express'),
     stats = require('./routes/stats'),
 	hash = require('./pass').hash,
 	https = require('https'),
-	fs = require('fs')
-	;
+	fs = require('fs');
+
+// Settings: user, passwords, etc...
+var settings = require ('./config/settings');
 	
-// This line is from the Node.js HTTPS documentation.
+// certificate and key for SSL encryption
 var options = {
   key: fs.readFileSync('certs/localhost.key'),
   cert: fs.readFileSync('certs/localhost.pem')
 };
-
 
 var app = express();
 
@@ -18,7 +19,7 @@ var app = express();
 app.configure(function () {
     app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
     app.use(express.bodyParser());
-	app.use(express.cookieParser('shhhh, very secret'));
+	app.use(express.cookieParser('parkstats'));
 	app.use(express.session());
 
 });
@@ -38,28 +39,28 @@ app.use(function(req, res, next){
 });
 
 // dummy database to be changed, wip
-var users = {
-  laurent: { name: 'laurent' },
-  corneliu: { name: 'corneliu' }
-};
-
-hash('tbd', function(err, salt, hash){
-  if (err) throw err;
-  // store the salt & hash in the "db"
-  users.laurent.salt = salt;
-  users.laurent.hash = hash;
-});
-
-hash('tbd', function(err, salt, hash){
-  if (err) throw err;
-  // store the salt & hash in the "db"
-  users.corneliu.salt = salt;
-  users.corneliu.hash = hash;
-});
+var users = {};
+users = settings.service.webusers;
 
 
-// Authenticate 
+// create salt/hash for each user. To be improved
+for(k in users){
+	
+	hash(users[k].pass, function(err, salt, hash){
+	  if (err) throw err;
+	  // store the salt & hash in the "db"
+	  users[k].salt = salt;
+	  users[k].hash = hash;
+	});
+}
 
+// Basic auth use to secure post data
+var auth = express.basicAuth(function(user, pass) {     
+   return (user == settings.service.user && pass == settings.service.pass);
+},'lprs post new stats area');
+
+
+// Web Authenticate 
 function authenticate(name, pass, fn) {
   if (!module.parent) console.log('authenticating %s:%s', name, pass);
   var user = users[name];
@@ -86,10 +87,12 @@ function restrict(req, res, next) {
   }
 }
 
+// Redirect to login
 app.get('/', function(req, res){
   res.redirect('login');
 });
 
+// Logout and delete session
 app.get('/logout', function(req, res){
   // destroy the user's session to log them out
   req.session.destroy(function(){
@@ -97,19 +100,20 @@ app.get('/logout', function(req, res){
   });
 });
 
+// login page
 app.get('/login', function(req, res){
   res.render('login');
 });
 
-
+// Web stats view render page
 app.get('/show/:file', restrict, function(req, res){
   res.sendfile(__dirname + '/show/index.html');
 });
 
-app.post('/stats', stats.addStat);
+app.post('/stats', auth, stats.addStat);
+app.get('/stats/unread',  stats.findUnreadAll);
+app.get('/stats/unread/:name',  stats.findUnreadByName);
 //app.get('/stats', stats.findAll);
-app.get('/stats/unread', stats.findUnreadAll);
-app.get('/stats/unread/:name', stats.findUnreadByName);
 //app.get('/stats/cdp', stats.findCdpAll);
 
 app.post('/login', function(req, res){

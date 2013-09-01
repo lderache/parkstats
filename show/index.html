@@ -7,60 +7,56 @@
 	<script language="javascript" type="text/javascript" src="./assets/js/jquery.js"></script>
 	<script language="javascript" type="text/javascript" src="./assets/js/jquery.flot.js"></script>
 	<script language="javascript" type="text/javascript" src="./assets/js/jquery.flot.time.js"></script>
+	
 	<script type="text/javascript">
 
 	$(function() {
-
-		// test data
-		//var arenas = [[1167692400000, 0.20], [1196982000000, 0.31], [1205967600000, 0.27], [1220911200000, 0.24]];
-		//var pmed = [[1167692400000, 0.10], [1196982000000, 0.21], [1205967600000, 0.27], [1220911200000, 0.14]];
-		
 		
 		plotChoice = function (mode) {
 		
-		console.log(mode);
-		var arenas = $.parseJSON(
-				$.ajax(
-				{
-					url: "../stats/" + mode + "/arenas", 
-					async: false, 
-					dataType: 'json'
-				}).responseText
-			);
-		var pmed = $.parseJSON(
-				$.ajax(
-				{
-					url: "../stats/" + mode + "/pmed", 
-					async: false, 
-					dataType: 'json'
-				}).responseText
-			);
+			console.log(mode);
+			var arenas = $.parseJSON(
+					$.ajax(
+					{
+						url: "../stats/" + mode + "/arenas", 
+						async: false, 
+						dataType: 'json'
+					}).responseText
+				);
+			var pmed = $.parseJSON(
+					$.ajax(
+					{
+						url: "../stats/" + mode + "/pmed", 
+						async: false, 
+						dataType: 'json'
+					}).responseText
+				);
+				
+			var marshall = $.parseJSON(
+					$.ajax(
+					{
+						url: "../stats/" + mode + "/marshall", 
+						async: false, 
+						dataType: 'json'
+					}).responseText
+				);
+				
 			
-		var marshall = $.parseJSON(
-				$.ajax(
-				{
-					url: "../stats/" + mode + "/marshall", 
-					async: false, 
-					dataType: 'json'
-				}).responseText
-			);
-			
-		
-		// prepare data for flot
-			var data = [
-				{ data: marshall, label: "marshall" },
-				{ data: arenas, label: "arenas" },
-				{ data: pmed, label: "pmed" }
-			];
-			
-			// prepare options
-			var options = {
-			canvas: false,
-			xaxes: [ { mode: "time" } ]
-			}
-			
-			// plot the data using flot
-			$.plot("#placeholder", data,options);
+			// prepare data for flot
+				var data = [
+					{ data: marshall, label: "marshall" },
+					{ data: arenas, label: "arenas" },
+					{ data: pmed, label: "pmed" }
+				];
+				
+				// prepare options
+				var options = {
+				canvas: false,
+				xaxes: [ { mode: "time" } ]
+				}
+				
+				// plot the data using flot
+				$.plot("#placeholder", data,options);
 		}
 	});
 	
