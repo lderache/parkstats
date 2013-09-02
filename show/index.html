@@ -1,157 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html ng-app>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Park. statistics</title>
 	<link href="./assets/css/examples.css" rel="stylesheet" type="text/css">
+	<link href="./assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<script language="javascript" type="text/javascript" src="./assets/js/jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="./assets/js/angular.min.js"></script>
+	<script language="javascript" type="text/javascript" src="./assets/js/parkstats.js"></script>
 	<script language="javascript" type="text/javascript" src="./assets/js/jquery.flot.js"></script>
 	<script language="javascript" type="text/javascript" src="./assets/js/jquery.flot.time.js"></script>
 	
-	<script type="text/javascript">
-
-	$(function() {
-		
-		plotChoice = function (mode) {
-		
-			//console.log(mode);
-			var pmed = $.parseJSON(
-					$.ajax(
-					{
-						url: "../stats/" + mode + "/PMED", 
-						async: false, 
-						dataType: 'json'
-					}).responseText
-				);
-				
-			var arenas = $.parseJSON(
-					$.ajax(
-					{
-						url: "../stats/" + mode + "/ARENAS", 
-						async: false, 
-						dataType: 'json'
-					}).responseText
-				);
-			
-			var valombrose = $.parseJSON(
-					$.ajax(
-					{
-						url: "../stats/" + mode + "/VALOMBROSE", 
-						async: false, 
-						dataType: 'json'
-					}).responseText
-				);
-			
-			var magnan = $.parseJSON(
-					$.ajax(
-					{
-						url: "../stats/" + mode + "/MAGNAN", 
-						async: false, 
-						dataType: 'json'
-					}).responseText
-				);
-			
-			var marshall = $.parseJSON(
-					$.ajax(
-					{
-						url: "../stats/" + mode + "/MARSHALL", 
-						async: false, 
-						dataType: 'json'
-					}).responseText
-				);
-			
-			var arts = $.parseJSON(
-					$.ajax(
-					{
-						url: "../stats/" + mode + "/ARTS", 
-						async: false, 
-						dataType: 'json'
-					}).responseText
-				);
-				
-			var corvesy = $.parseJSON(
-					$.ajax(
-					{
-						url: "../stats/" + mode + "/CORVESY", 
-						async: false, 
-						dataType: 'json'
-					}).responseText
-				);
-				
-			var palmeira = $.parseJSON(
-					$.ajax(
-					{
-						url: "../stats/" + mode + "/PALMERA", 
-						async: false, 
-						dataType: 'json'
-					}).responseText
-				);
-			
-			var massena = $.parseJSON(
-					$.ajax(
-					{
-						url: "../stats/" + mode + "/MASSENA", 
-						async: false, 
-						dataType: 'json'
-					}).responseText
-				);
-				
-			var bosquet = $.parseJSON(
-					$.ajax(
-					{
-						url: "../stats/" + mode + "/BOSQUET", 
-						async: false, 
-						dataType: 'json'
-					}).responseText
-				);
-				
-			
-				
-			
-			// prepare data for flot
-				var data = [
-					{ data: pmed, label: "pmed" },
-					{ data: arenas, label: "arenas" },
-					{ data: valombrose, label: "valombrose" },
-					{ data: magnan, label: "magnan" },
-					{ data: marshall, label: "marshall" },
-					{ data: arts, label: "arts" },
-					{ data: corvesy, label: "corvesy" },
-					{ data: palmeira, label: "palmeira" },
-					{ data: massena, label: "massena" },
-					{ data: bosquet, label: "bosquet" }
-				];
-				
-				// prepare options
-				var options = {
-				canvas: false,
-				xaxes: [ { mode: "time" } ]
-				}
-				
-				// plot the data using flot
-				$.plot("#placeholder", data,options);
-		}
-	});
-	
-
-	</script>
 </head>
-<body>
+<body ng-controller="StatsCtrl">
 
 	<div id="header">
+		
 		<h2>Statistiques LPRS</h2>
-		<select style="float: left;" onChange="plotChoice(this.value)">
-		  <option value="choice" selected="selected">Choisir une option</option>
-		  <option value="cdp">Actions cdp</option>
-		  <option value="unread">Non lues cdp (%)</option>
-		  <option value="unreadtotal">Non lues cdp (total)</option>
-		  <option value="totaldb">Remplissage Db</option>
-		  <option value="totalmov">Mouvements</option>
-		  <option value="perfect">Lecture parfaite</option>
-		  <option value="error_1">Avec 1 err.</option>
-		  <option value="error_2">Avec 2 err.</option>
+		
+		<select ng-model="parkingSelected" ng-options="p.name for p in parkings" ng-change="changeParking()">
+			<option style="display: none" value="">Choisir un parking</option>
 		</select>
-		<a style="float: right;" href="/logout"> Logout </a>
+		
+		<select ng-model="statSelected" ng-options="s.name for s in stats" ng-change="changePlotType()" ng-disabled="noParkSelected" ng-init="noParkSelected=true">
+		  <option style="display: none" value="">Choisir les donnees</option>
+		</select>
+		
+		<a class="btn btn-warning" style="float: right;" href="/logout"> Logout </a>
 	</div>
 
 	<div id="content">
