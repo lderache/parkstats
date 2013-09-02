@@ -111,8 +111,17 @@ app.get('/show/:file', restrict, function(req, res){
 });
 
 app.post('/stats', auth, stats.addStat);
-app.get('/stats/unread',  stats.findUnreadAll);
+app.get('/stats/cdp/:name',  stats.findCdpByName);
 app.get('/stats/unread/:name',  stats.findUnreadByName);
+app.get('/stats/unreadtotal/:name',  stats.findUnreadTotalByName);
+app.get('/stats/totaldb/:name',  stats.findTotalDbByName);
+app.get('/stats/totalmov/:name',  stats.findTotalMovByName);
+app.get('/stats/perfect/:name',  stats.findPerfectByName);
+app.get('/stats/error_1/:name',  stats.findError1ByName);
+app.get('/stats/error_2/:name',  stats.findError2ByName);
+
+// to be used later if needed
+//app.get('/stats/unread',  stats.findUnreadAll);
 //app.get('/stats', stats.findAll);
 //app.get('/stats/cdp', stats.findCdpAll);
 

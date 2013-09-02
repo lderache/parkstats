@@ -14,11 +14,65 @@
 		
 		plotChoice = function (mode) {
 		
-			console.log(mode);
+			//console.log(mode);
+			var pmed = $.parseJSON(
+					$.ajax(
+					{
+						url: "../stats/" + mode + "/PMED", 
+						async: false, 
+						dataType: 'json'
+					}).responseText
+				);
+				
 			var arenas = $.parseJSON(
 					$.ajax(
 					{
-						url: "../stats/" + mode + "/arenas", 
+						url: "../stats/" + mode + "/ARENAS", 
+						async: false, 
+						dataType: 'json'
+					}).responseText
+				);
+			
+			var valombrose = $.parseJSON(
+					$.ajax(
+					{
+						url: "../stats/" + mode + "/VALOMBROSE", 
+						async: false, 
+						dataType: 'json'
+					}).responseText
+				);
+			
+			var magnan = $.parseJSON(
+					$.ajax(
+					{
+						url: "../stats/" + mode + "/MAGNAN", 
+						async: false, 
+						dataType: 'json'
+					}).responseText
+				);
+			
+			var marshall = $.parseJSON(
+					$.ajax(
+					{
+						url: "../stats/" + mode + "/MARSHALL", 
+						async: false, 
+						dataType: 'json'
+					}).responseText
+				);
+			
+			var arts = $.parseJSON(
+					$.ajax(
+					{
+						url: "../stats/" + mode + "/ARTS", 
+						async: false, 
+						dataType: 'json'
+					}).responseText
+				);
+				
+			var corvesy = $.parseJSON(
+					$.ajax(
+					{
+						url: "../stats/" + mode + "/CORVESY", 
 						async: false, 
 						dataType: 'json'
 					}).responseText
@@ -32,32 +86,40 @@
 						dataType: 'json'
 					}).responseText
 				);
-				
-			var pmed = $.parseJSON(
+			
+			var massena = $.parseJSON(
 					$.ajax(
 					{
-						url: "../stats/" + mode + "/pmed", 
+						url: "../stats/" + mode + "/MASSENA", 
 						async: false, 
 						dataType: 'json'
 					}).responseText
 				);
 				
-			var marshall = $.parseJSON(
+			var bosquet = $.parseJSON(
 					$.ajax(
 					{
-						url: "../stats/" + mode + "/marshall", 
+						url: "../stats/" + mode + "/BOSQUET", 
 						async: false, 
 						dataType: 'json'
 					}).responseText
 				);
 				
 			
+				
+			
 			// prepare data for flot
 				var data = [
-					{ data: marshall, label: "marshall" },
+					{ data: pmed, label: "pmed" },
 					{ data: arenas, label: "arenas" },
+					{ data: valombrose, label: "valombrose" },
+					{ data: magnan, label: "magnan" },
+					{ data: marshall, label: "marshall" },
+					{ data: arts, label: "arts" },
+					{ data: corvesy, label: "corvesy" },
 					{ data: palmeira, label: "palmeira" },
-					{ data: pmed, label: "pmed" }
+					{ data: massena, label: "massena" },
+					{ data: bosquet, label: "bosquet" }
 				];
 				
 				// prepare options
@@ -77,13 +139,19 @@
 <body>
 
 	<div id="header">
-		<h3>Choisir une option</h3>
-		<select onChange="plotChoice(this.value)">
-		  <option value="unread">Non lues cdp</option>
+		<h2>Statistiques LPRS</h2>
+		<select style="float: left;" onChange="plotChoice(this.value)">
+		  <option value="choice" selected="selected">Choisir une option</option>
 		  <option value="cdp">Actions cdp</option>
+		  <option value="unread">Non lues cdp (%)</option>
+		  <option value="unreadtotal">Non lues cdp (total)</option>
+		  <option value="totaldb">Remplissage Db</option>
+		  <option value="totalmov">Mouvements</option>
 		  <option value="perfect">Lecture parfaite</option>
+		  <option value="error_1">Avec 1 err.</option>
+		  <option value="error_2">Avec 2 err.</option>
 		</select>
-		<a href="/logout"> Logout </a>
+		<a style="float: right;" href="/logout"> Logout </a>
 	</div>
 
 	<div id="content">

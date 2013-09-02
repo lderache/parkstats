@@ -31,26 +31,144 @@ db.open(function(err, db) {
     });
 };
 
- exports.findUnreadByName = function(req, res) {
+// unread
+exports.findUnreadByName = function(req, res) {
     var n = req.params.name;
-    
     db.collection('parkstats', function(err, collection) {
         collection.find({name: n}, {unread: 1, date : 1, _id: 0}).toArray(function(err, items) {
-            
-			aa = [];
-			
+			result = [];
 			items.forEach(function (data) {
-				
-				bb = [];
-				bb.push(parseInt(data['date']));
-				bb.push(parseFloat(data['unread']));
-				aa.push(bb);
+				item = [];
+				item.push(parseInt(data['date']));
+				item.push(parseFloat(data['unread']));
+				result.push(item);
 			});
-			
-			res.send(aa);
+			res.send(result);
         });
     });
 };
+
+// cdp
+exports.findCdpByName = function(req, res) {
+    var n = req.params.name;
+    db.collection('parkstats', function(err, collection) {
+        collection.find({name: n}, {cdp: 1, date : 1, _id: 0}).toArray(function(err, items) {
+			result = [];
+			items.forEach(function (data) {
+				item = [];
+				item.push(parseInt(data['date']));
+				item.push(parseFloat(data['cdp']));
+				result.push(item);
+			});
+			res.send(result);
+        });
+    });
+};
+
+// unreadtotal
+exports.findUnreadTotalByName = function(req, res) {
+    var n = req.params.name;
+    db.collection('parkstats', function(err, collection) {
+        collection.find({name: n}, {unreadtotal: 1, date : 1, _id: 0}).toArray(function(err, items) {
+			result = [];
+			items.forEach(function (data) {
+				item = [];
+				item.push(parseInt(data['date']));
+				item.push(parseFloat(data['unreadtotal']));
+				result.push(item);
+			});
+			res.send(result);
+        });
+    });
+};
+
+// unreadtotal
+exports.findTotalDbByName = function(req, res) {
+    var n = req.params.name;
+    db.collection('parkstats', function(err, collection) {
+        collection.find({name: n}, {totaldb: 1, date : 1, _id: 0}).toArray(function(err, items) {
+			result = [];
+			items.forEach(function (data) {
+				item = [];
+				item.push(parseInt(data['date']));
+				item.push(parseFloat(data['totaldb']));
+				result.push(item);
+			});
+			res.send(result);
+        });
+    });
+};
+
+// findTotalMovByName
+exports.findTotalMovByName = function(req, res) {
+    var n = req.params.name;
+    db.collection('parkstats', function(err, collection) {
+        collection.find({name: n}, {totalmov: 1, date : 1, _id: 0}).toArray(function(err, items) {
+			result = [];
+			items.forEach(function (data) {
+				item = [];
+				item.push(parseInt(data['date']));
+				item.push(parseFloat(data['totalmov']));
+				result.push(item);
+			});
+			res.send(result);
+        });
+    });
+};
+
+// findPerfectByName
+exports.findPerfectByName = function(req, res) {
+    var n = req.params.name;
+    db.collection('parkstats', function(err, collection) {
+        collection.find({name: n}, {perfect: 1, date : 1, _id: 0}).toArray(function(err, items) {
+			result = [];
+			items.forEach(function (data) {
+				item = [];
+				item.push(parseInt(data['date']));
+				item.push(parseFloat(data['perfect']));
+				result.push(item);
+			});
+			res.send(result);
+        });
+    });
+};
+
+// findError1ByName
+exports.findError1ByName = function(req, res) {
+    var n = req.params.name;
+    db.collection('parkstats', function(err, collection) {
+        collection.find({name: n}, {error_1: 1, date : 1, _id: 0}).toArray(function(err, items) {
+			result = [];
+			items.forEach(function (data) {
+				item = [];
+				item.push(parseInt(data['date']));
+				item.push(parseFloat(data['error_1']));
+				result.push(item);
+			});
+			res.send(result);
+        });
+    });
+};
+
+// findError2ByName
+exports.findError2ByName = function(req, res) {
+    var n = req.params.name;
+    db.collection('parkstats', function(err, collection) {
+        collection.find({name: n}, {error_2: 1, date : 1, _id: 0}).toArray(function(err, items) {
+			result = [];
+			items.forEach(function (data) {
+				item = [];
+				item.push(parseInt(data['date']));
+				item.push(parseFloat(data['error_2']));
+				result.push(item);
+			});
+			res.send(result);
+        });
+    });
+};
+
+
+
 
 exports.findUnreadAll = function(req, res) {
     db.collection('parkstats', function(err, collection) {
