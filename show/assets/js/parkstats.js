@@ -14,6 +14,7 @@ function StatsCtrl($scope, $http) {
 				{name: "MASSENA"}, 
 				{name: "BOSQUET"} 
 				];
+				
 	
 	$scope.stats = [ 
 			{name: "Actions cdp", action: "cdp"},
