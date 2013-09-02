@@ -3,16 +3,16 @@
 function StatsCtrl($scope, $http) {
 
 	$scope.parkings = [ 
-				{name: "pmed"}, 
-				{name: "arenas"}, 
-				{name: "valombrose"}, 
-				{name: "magnan"}, 
-				{name: "marshall"}, 
-				{name: "arts"}, 
-				{name: "corvesy"}, 
-				{name: "palmeira"}, 
-				{name: "massena"}, 
-				{name: "bosquet"} 
+				{name: "PMED"}, 
+				{name: "ARENAS"}, 
+				{name: "VALOMBROSE"}, 
+				{name: "MAGNAN"}, 
+				{name: "MARSHALL"}, 
+				{name: "ARTS"}, 
+				{name: "CORVESY"}, 
+				{name: "PALMERA"}, 
+				{name: "MASSENA"}, 
+				{name: "BOSQUET"} 
 				];
 	
 	$scope.stats = [ 
