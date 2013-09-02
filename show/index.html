@@ -23,6 +23,16 @@
 						dataType: 'json'
 					}).responseText
 				);
+				
+			var palmeira = $.parseJSON(
+					$.ajax(
+					{
+						url: "../stats/" + mode + "/PALMERA", 
+						async: false, 
+						dataType: 'json'
+					}).responseText
+				);
+				
 			var pmed = $.parseJSON(
 					$.ajax(
 					{
@@ -46,6 +56,7 @@
 				var data = [
 					{ data: marshall, label: "marshall" },
 					{ data: arenas, label: "arenas" },
+					{ data: palmeira, label: "palmeira" },
 					{ data: pmed, label: "pmed" }
 				];
 				
@@ -66,7 +77,7 @@
 <body>
 
 	<div id="header">
-		<h2>Non lues CDP (%)</h2>
+		<h3>Choisir une option</h3>
 		<select onChange="plotChoice(this.value)">
 		  <option value="unread">Non lues cdp</option>
 		  <option value="cdp">Actions cdp</option>
@@ -82,8 +93,6 @@
 		</div>
 
 		
-
-
 	</div>
 
 
