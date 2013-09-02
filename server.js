@@ -144,5 +144,5 @@ app.post('/login', function(req, res){
 // staitc mapping to be done in the end since we do not want it to override folder restrict access
 app.use('/show', express.static(__dirname + '/show'));
  
-https.createServer(options, app).listen(443);
-console.log('Listening on port 443...');
+https.createServer(options, app).listen(10443);
+console.log('Listening on port 10443...');
