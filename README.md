@@ -1,14 +1,8 @@
 parkstats
 =========
 
-simple poc for parking LPR stats application
+Simple Nodejs + angularjs app used to aggregate parking statistics
 
-Install:
---------
-
-npm install (to install express dependency)
-
-npm install mongodb
 
 
 
