@@ -38,6 +38,7 @@ function StatsCtrl($scope, $http) {
 		
 		//console.log($scope.parkingSelected.name);
 		$scope.noParkSelected = false;
+		plotData($scope.parkingSelected.name, $scope.statSelected.action);
 	}
 	
 	plotData = function(parkname, type) {
@@ -45,7 +46,7 @@ function StatsCtrl($scope, $http) {
 			console.log(plotdata);
 			
 			var p = [
-					{ data: plotdata, label: parkname }
+					{ data: plotdata, label: parkname, color: 'blue'}
 				];
 				
 				// prepare options
