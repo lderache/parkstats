@@ -62,7 +62,7 @@ var auth = express.basicAuth(function(user, pass) {
 
 // Web Authenticate 
 function authenticate(name, pass, fn) {
-  if (!module.parent) console.log('authenticating %s:%s', name, pass);
+  if (!module.parent) console.log('authenticating user %s', name);
   var user = users[name];
   // query the db for the given username
   if (!user) return fn(new Error('cannot find user'));
